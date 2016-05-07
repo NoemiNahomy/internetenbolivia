@@ -1,13 +1,282 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-<html lang="en">
-<head>
+<html style="" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/css.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.css' %}" rel="stylesheet">
     <link href="{% static 'css/leaflet.css' %}" rel="stylesheet">
-    <script src="{% static 'js/leaflet.js'%}"></script>
+    <link href="{% static 'css/jquery_002.css' %}" rel="stylesheet">
+    <link href="{% static 'css/green.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.nouislider.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <title>Mapa de internet en bolivia</title>
+
 </head>
-<body>
-<h1>INICIANDO MAPEO EN BOLIVIA DE LA RED </h1>
-</body>
-</html>
+
+<body onunload="" class="map-fullscreen page-homepage navigation-off-canvas page-fade-in loaded" id="page-top">
+
+<!-- Outer Wrapper-->
+<div id="outer-wrapper">
+    <!-- Inner Wrapper -->
+    <div id="inner-wrapper">
+        <!-- Navigation-->
+        <div class="header">
+            <div class="wrapper">
+                <div class="brand">
+                    <a href="#"><h3>Internet en bolivia</h3></a>
+                </div>
+                <nav class="navigation-items">
+                    <div class="wrapper">
+                        <ul class="main-navigation navigation-top-header"></ul>
+                        <ul class="user-area">
+                            <li><a href="#">Iniciar sesion</a></li>
+                            <li><a href="#"><strong>Registrarse</strong></a></li>
+                        </ul>
+                        <a href="#" class="submit-item">
+                            <div class="content"><span>Submit Your Item</span></div>
+                            <div class="icon">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </a>
+                        <div class="toggle-navigation">
+                            <div class="icon">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- end Navigation-->
+        <!-- Page Canvas-->
+        <div id="page-canvas">
+            <!--Off Canvas Navigation-->
+            <nav class="off-canvas-navigation">
+                <header style="line-height: 70px;">Navigation</header>
+                <div class="main-navigation navigation-off-canvas">
+
+                    <ul>
+                        <li><a href="#home" class="has-child" data-toggle="collapse" aria-expanded="false" aria-controls="home">Home</a>
+                            <div class="collapse" id="home">
+                                <ul>
+                                    <li><a href="">OpenStreetMap</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+            <!--end Off Canvas Navigation-->
+            <!--Page Content-->
+            <div id="page-content">
+                <!-- Map Canvas-->
+                <div style="height: 510px;" class="map-canvas list-solid">
+                    <!-- Map -->
+                    <div class="map">
+                        <div class="toggle-navigation">
+                            <div class="icon">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <!--/.toggle-navigation-->
+                        <div tabindex="0" style="position: relative;" id="map" class="has-parallax leaflet-container leaflet-fade-anim"></div>
+                    </div>
+                    <!-- end Map -->
+                    <!--Items List-->
+                    <div class="items-list mCustomScrollbar _mCS_1"><div tabindex="0" id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"><div id="mCSB_1_container" class="mCSB_container" style="position: relative; left: 0px; top: 0px;" dir="ltr">
+                        <div class="inner">
+                            <div class="scroller1">
+                                <div class="filter">
+                                    <form class="main-search" role="form" method="post" action="?">
+                                        <header class="clearfix">
+                                            <h3 class="pull-left">Busqueda</h3>
+                                            <a href="#advanced-search" class="show-more pull-right" data-toggle="collapse" aria-expanded="false" aria-controls="advanced-search">Advanced Search</a>
+                                        </header>
+                                        <div class="advanced-search collapse" id="advanced-search">
+                                            <h4>Features</h4>
+                                            <ul class="list-unstyled checkboxes">
+
+                                            </ul>
+                                        </div>
+
+                                    </form>
+                                    <!-- /.main-search -->
+                                </div>
+                                <!--end Filter-->
+                                <header class="clearfix">
+                                    <h3 class="pull-left">Resultados</h3>
+                                    <div class="buttons pull-right">
+                                        <span>Display:</span>
+                                        <span class="icon active" id="display-grid"><i class="fa fa-th"></i></span>
+                                        <span class="icon" id="display-list"><i class="fa fa-th-list"></i></span>
+                                    </div>
+                                </header>
+                                <ul class="results grid"></ul>
+                                <div class="scroller__track">
+                                    <div class="scroller__bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--results-->
+                    </div><div style="display: block;" id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; display: block; height: 96px; max-height: 460px;" oncontextmenu="return false;"><div style="line-height: 30px;" class="mCSB_dragger_bar"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+                    <!--end Items List-->
+                </div>
+                <!-- end Map Canvas-->
+                <!--Why Us-->
+                    <section id="why-us" class="block">
+                        <div class="container">
+                            <header><h2>Por que hacemos esto?</h2></header>
+                         </div>
+                    </section>
+                <!--end Why Us-->
+
+                <section class="block banner center">
+
+                </section>
+
+                <!--Our Team-->
+                <section class="block" id="the-team">
+                    <div class="container">
+                        <header class="no-border"><h3>Colaboradores:</h3></header>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <div class="member">
+
+                                </div>
+                                <!--/.member-->
+                            </div>
+                            <!--/.col-md-3-->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="member">
+
+                                </div>
+                                <!--/.member-->
+                            </div>
+                            <!--/.col-md-3-->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="member">
+
+                                </div>
+                                <!--/.member-->
+                            </div>
+                            <!--/.col-md-3-->
+                            <div class="col-md-3 col-sm-3">
+                                <div class="member">
+
+                                </div>
+                                <!--/.member-->
+                            </div>
+                            <!--/.col-md-3-->
+                        </div>
+                        <!--/.row-->
+                    </div>
+                    <!--/.container-->
+                </section>
+                <!--end Our Team-->
+                <!--Partners-->
+                <section id="partners" class="block">
+                    <div class="container">
+                        <header><h2>Con el apoyo de:</h2></header>
+                        <div class="logos">
+                        </div>
+                    </div>
+                    <!--/.container-->
+                </section>
+                <!--end Partners-->
+            </div>
+            <!-- end Page Content-->
+        </div>
+        <!-- end Page Canvas-->
+        <!--Page Footer-->
+        <footer id="page-footer">
+            <div class="inner">
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                <!--New Items-->
+                                <section>
+                                    <h2>Nuevas Noticias</h2>
+                                </section>
+                                <!--end New Items-->
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <section>
+                                    <h2>Acerca de nosotros</h2>
+                                </section>
+                            </div>
+                            <!--/.col-md-4-->
+                        </div>
+                        <!--/.row-->
+                    </div>
+                    <!--/.container-->
+                </div>
+                <!--/.footer-top-->
+                <div class="footer-bottom">
+                    <div class="container">
+                        <span class="left"></span>
+                            <span class="right">
+                                <a href="#page-top" class="to-top roll"><i class="fa fa-angle-up"></i></a>
+                            </span>
+                    </div>
+                </div>
+                <!--/.footer-bottom-->
+            </div>
+        </footer>
+        <!--end Page Footer-->
+    </div>
+    <!-- end Inner Wrapper -->
+</div>
+<!-- end Outer Wrapper-->
+<script src="{% static 'js/leaflet/leaflet.js'%}"></script>
+<script src="{% static 'js/leaflet_002.js'%}"></script>
+<script src="{% static 'js/jquery.js'%}"></script>
+<script src="{% static 'js/jquery-migrate-1.js'%}"></script>
+<script src="{% static 'js/custom.js'%}"></script>
+<script src="{% static 'js/icheck.js'%}"></script>
+<script src="{% static 'js/bootstrap-select.js'%}"></script>
+<script src="{% static 'js/smoothscroll.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'js/before.js'%}"></script>
+<script src="{% static 'js/owl.carousel.min.js'%}"></script>
+<script src="{% static 'js/jquery.nouislider.all.min.js'%}"></script>
+<script src="{% static 'js/before.load.js'%}"></script>
+<script src="{% static 'js/jquery.hotkeys.js'%}"></script>
+<script src="{% static 'js/leaflet.markercluster.js'%}"></script>
+<script src="{% static 'js/leaflet.provider.js'%}"></script>
+<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+<script>
+  var mymap = L.map('map').setView([-17.783553,-63.1762577], 13);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+			maxZoom: 13,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		}).addTo(mymap);
+
+		var popup = L.popup();
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("You clicked the map at " + e.latlng.toString())
+				.openOn(mymap);
+		}
+
+		mymap.on('click', onMapClick);
+</script>
+
+</body></html>

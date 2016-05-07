@@ -1,0 +1,119 @@
+
+.noUi-target, .noUi-target * {
+    -moz-user-select: none;
+    box-sizing: border-box;
+}
+.noUi-target {
+    direction: ltr;
+    position: relative;
+}
+.noUi-base {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+.noUi-origin {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.noUi-handle {
+    position: relative;
+    z-index: 1;
+}
+.noUi-stacking .noUi-handle {
+    z-index: 10;
+}
+.noUi-state-tap .noUi-origin {
+    transition: left 0.3s ease 0s, top 0.3s ease 0s;
+}
+.noUi-state-drag * {
+    cursor: inherit !important;
+}
+.noUi-base {
+    transform: translate3d(0px, 0px, 0px);
+}
+.noUi-horizontal {
+    height: 18px;
+}
+.noUi-horizontal .noUi-handle {
+    height: 28px;
+    left: -17px;
+    top: -6px;
+    width: 34px;
+}
+.noUi-vertical {
+    width: 18px;
+}
+.noUi-vertical .noUi-handle {
+    height: 34px;
+    left: -6px;
+    top: -17px;
+    width: 28px;
+}
+.noUi-background {
+    background: #fafafa none repeat scroll 0 0;
+    box-shadow: 0 1px 1px #f0f0f0 inset;
+}
+.noUi-connect {
+    background: #3fb8af none repeat scroll 0 0;
+    box-shadow: 0 0 3px rgba(51, 51, 51, 0.45) inset;
+    transition: background 450ms ease 0s;
+}
+.noUi-origin {
+    border-radius: 2px;
+}
+.noUi-target {
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px #f0f0f0 inset, 0 3px 6px -5px #bbb;
+}
+.noUi-target.noUi-connect {
+    box-shadow: 0 0 3px rgba(51, 51, 51, 0.45) inset, 0 3px 6px -5px #bbb;
+}
+.noUi-dragable {
+    cursor: w-resize;
+}
+.noUi-vertical .noUi-dragable {
+    cursor: n-resize;
+}
+.noUi-handle {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #fff inset, 0 1px 7px #ebebeb inset, 0 3px 6px -3px #bbb;
+    cursor: default;
+}
+.noUi-active {
+    box-shadow: 0 0 1px #fff inset, 0 1px 7px #ddd inset, 0 3px 6px -3px #bbb;
+}
+.noUi-handle::after, .noUi-handle::before {
+    background: #e8e7e6 none repeat scroll 0 0;
+    content: "";
+    display: block;
+    height: 14px;
+    left: 14px;
+    position: absolute;
+    top: 6px;
+    width: 1px;
+}
+.noUi-handle::after {
+    left: 17px;
+}
+.noUi-vertical .noUi-handle::after, .noUi-vertical .noUi-handle::before {
+    height: 1px;
+    left: 6px;
+    top: 14px;
+    width: 14px;
+}
+.noUi-vertical .noUi-handle::after {
+    top: 17px;
+}
+[disabled] .noUi-connect, .noUi-connect[disabled] {
+    background: #b8b8b8 none repeat scroll 0 0;
+}
+[disabled] .noUi-handle {
+    cursor: not-allowed;
+}
